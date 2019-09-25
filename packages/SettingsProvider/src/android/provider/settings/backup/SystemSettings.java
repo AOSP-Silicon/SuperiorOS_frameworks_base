@@ -94,5 +94,6 @@ public class SystemSettings {
         Settings.System.ENABLE_RIPPLE_EFFECT,
         Settings.System.QS_SHOW_BATTERY_ESTIMATE,
         Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
+        Settings.System.BACK_GESTURE_HEIGHT,
     };
 }
