@@ -76,4 +76,9 @@
 
     <!-- FPSInfoService FPS Info text padding -->
     <dimen name="fps_info_text_padding">4dp</dimen>
+
+    <!-- QS System Info -->
+    <dimen name="qs_header_alarm_icon_size">@dimen/status_bar_icon_drawing_size</dimen>
+    <dimen name="qs_status_separator">8dp</dimen>
+    <dimen name="qs_temperatur_icon_size">16sp</dimen>
 </resources>
