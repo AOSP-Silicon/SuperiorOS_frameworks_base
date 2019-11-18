@@ -263,6 +263,8 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
     private int mSysUiFlags;
 
     private boolean mEdgeHapticEnabled;
+    private boolean mIsBackGestureArrowEnabled;
+
     private final Vibrator mVibrator;
 
     // For Tf-Lite model.
@@ -390,6 +392,7 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
         mEdgeHapticEnabled = mGestureNavigationSettingsObserver.getEdgeHaptic();
         mIsBackGestureAllowed =
                 !mGestureNavigationSettingsObserver.areNavigationButtonForcedVisible();
+        mIsBackGestureArrowEnabled = mGestureNavigationSettingsObserver.getBackArrowGesture();
 
         mYDeadzoneDivider = mGestureNavigationSettingsObserver.getDeadZoneMode();
         mTimeout = mGestureNavigationSettingsObserver.getLongSwipeTimeOut();
@@ -842,6 +845,7 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
                     && isWithinTouchRegion((int) ev.getX(), (int) ev.getY());
             if (mAllowGesture) {
                 mEdgeBackPlugin.setIsLeftPanel(mIsOnLeftEdge);
+                mEdgeBackPlugin.setBackArrowVisibility(mIsBackGestureArrowEnabled);
                 mEdgeBackPlugin.onMotionEvent(ev);
             }
             if (mLogGesture) {
