@@ -125,6 +125,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
     private FeatureConnector<ImsManager> mFeatureConnector;
     private int mCallState = TelephonyManager.CALL_STATE_IDLE;
     private boolean mShowVolteIcon;
+    private boolean mIsVowifiAvailable;
 
     private final MobileStatusTracker.Callback mMobileCallback =
             new MobileStatusTracker.Callback() {
@@ -502,11 +503,13 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         mCurrentState.voiceCapable = tm.isVolteAvailable();
         mCurrentState.videoCapable = tm.isVideoTelephonyAvailable();
         mCurrentState.imsRegistered = mPhone.isImsRegistered(mSubscriptionInfo.getSubscriptionId());
+        mIsVowifiAvailable = tm.isWifiCallingAvailable();
         if (DEBUG) {
             Log.d(mTag, "queryImsState tm=" + tm + " phone=" + mPhone
                     + " voiceCapable=" + mCurrentState.voiceCapable
                     + " videoCapable=" + mCurrentState.videoCapable
-                    + " imsRegistered=" + mCurrentState.imsRegistered);
+                    + " imsRegistered=" + mCurrentState.imsRegistered
+                    + " mIsVowifiAvailable=" + mIsVowifiAvailable);
         }
         notifyListenersIfNecessary();
     }
@@ -1010,19 +1013,10 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
                 mCurrentState.getDataNetworkType() : TelephonyManager.NETWORK_TYPE_UNKNOWN;
     }
 
-    private boolean isVowifiAvailable() {
-        return mCurrentState.voiceCapable &&  mCurrentState.imsRegistered
-                && getDataNetworkType() == TelephonyManager.NETWORK_TYPE_IWLAN;
-    }
-
-    private MobileIconGroup getVowifiIconGroup() {
-        if ( isVowifiAvailable() && !isCallIdle() ) {
-            return TelephonyIcons.VOWIFI_CALLING;
-        }else if (isVowifiAvailable()) {
-            return TelephonyIcons.VOWIFI;
-        }else {
-            return null;
-        }
+    public boolean isVowifiAvailable() {
+        return mCurrentState.voiceCapable && mCurrentState.imsRegistered
+                && (getDataNetworkType() == TelephonyManager.NETWORK_TYPE_IWLAN
+                || mIsVowifiAvailable);
     }
 
     @Override
