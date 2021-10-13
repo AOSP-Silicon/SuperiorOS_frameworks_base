@@ -92,5 +92,6 @@ public class SystemSettings {
         Settings.System.KEYGAURD_MEDIA_ART,
         Settings.System.LOCKSCREEN_BATTERY_INFO,
         Settings.System.ENABLE_RIPPLE_EFFECT,
+	Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
     };
 }
