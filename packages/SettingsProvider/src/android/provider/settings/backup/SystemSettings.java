@@ -94,5 +94,6 @@ public class SystemSettings {
         Settings.System.ENABLE_RIPPLE_EFFECT,
 	Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
         Settings.System.BACK_GESTURE_HEIGHT,
+        Settings.System.FULLSCREEN_GESTURES,
     };
 }
