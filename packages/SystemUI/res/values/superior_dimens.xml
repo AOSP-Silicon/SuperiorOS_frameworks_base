@@ -74,4 +74,6 @@
     <!-- Floating rotation button margin when on 2-button navbar mode -->
     <dimen name="floating_rotation_button_min_margin_navbar">60dp</dimen>
 
+    <!-- FPSInfoService FPS Info text padding -->
+    <dimen name="fps_info_text_padding">4dp</dimen>
 </resources>
