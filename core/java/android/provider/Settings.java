@@ -5906,6 +5906,12 @@ public final class Settings {
         public static final String SMART_CHARGING_RESET_STATS = "smart_charging_reset_stats";
 
         /**
+         * Whether to disable qs on secure lockscreen.
+         * @hide
+         */
+        public static final String SECURE_LOCKSCREEN_QS_DISABLED = "secure_lockscreen_qs_disabled";
+
+        /**
          * These are all public system settings
          *
          * @hide
