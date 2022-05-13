@@ -5912,6 +5912,18 @@ public final class Settings {
         public static final String SECURE_LOCKSCREEN_QS_DISABLED = "secure_lockscreen_qs_disabled";
 
         /**
+         * Whether to add left padding on statusbar
+         * @hide
+         */
+        public static final String LEFT_PADDING = "statusbar_left_padding";
+
+        /**
+         * Whether to add right padding on statusbar
+         * @hide
+         */
+        public static final String RIGHT_PADDING = "statusbar_right_padding";
+
+        /**
          * These are all public system settings
          *
          * @hide
