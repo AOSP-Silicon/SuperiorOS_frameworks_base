@@ -28,7 +28,6 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.hardware.input.InputManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.BatteryManager;
 import android.os.Handler;
@@ -63,9 +62,7 @@ public class SuperiorUtils {
 
     // Check to see if device is WiFi only
     public static boolean isWifiOnly(Context context) {
-	ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
-	        Context.CONNECTIVITY_SERVICE);
-	return (cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE) == false);
+        return !context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
     }
 
 	// Returns today's passed time in Millisecond
