@@ -52,6 +52,16 @@ import com.android.systemui.util.leak.GarbageMonitor;
 import org.pixelexperience.systemui.qs.tiles.BatterySaverTileGoogle;
 import org.pixelexperience.systemui.qs.tiles.ReverseChargingTile;
 
+import com.android.systemui.qs.tiles.CaffeineTile;
+import com.android.systemui.qs.tiles.AmbientDisplayTile;
+import com.android.systemui.qs.tiles.AODTile;
+import com.android.systemui.qs.tiles.UsbTetherTile;
+import com.android.systemui.qs.tiles.DataSwitchTile;
+import com.android.systemui.qs.tiles.VolumeTile;
+import com.android.systemui.qs.tiles.SoundTile;
+import com.android.systemui.qs.tiles.SyncTile;
+import com.android.systemui.qs.tiles.HeadsUpTile;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -93,6 +103,15 @@ public class QSFactoryImplGoogle extends QSFactoryImpl {
             Provider<DeviceControlsTile> deviceControlsTileProvider,
             Provider<AlarmTile> alarmTileProvider,
             Provider<QuickAccessWalletTile> quickAccessWalletTileProvider,
+            Provider<CaffeineTile> caffeineTileProvider,
+            Provider<AODTile> aodTileProvider,
+            Provider<SyncTile> syncTileProvider,
+            Provider<SoundTile> soundTileProvider,
+            Provider<AmbientDisplayTile> ambientDisplayTileProvider,
+            Provider<UsbTetherTile> usbTetherTileProvider,
+            Provider<HeadsUpTile> headsUpTileProvider,
+            Provider<VolumeTile> volumeTileProvider,
+            Provider<DataSwitchTile> dataSwitchTileProvider,
             Provider<ReverseChargingTile> reverseChargingTileProvider) {
         super(qsHostLazy,
                 customTileBuilderProvider,
@@ -122,7 +141,16 @@ public class QSFactoryImplGoogle extends QSFactoryImpl {
                 microphoneToggleTileProvider,
                 deviceControlsTileProvider,
                 alarmTileProvider,
-                quickAccessWalletTileProvider);
+                quickAccessWalletTileProvider,
+                caffeineTileProvider,
+                aodTileProvider,
+                syncTileProvider,
+                soundTileProvider,
+                ambientDisplayTileProvider,
+                usbTetherTileProvider,
+                headsUpTileProvider,
+                volumeTileProvider,
+                dataSwitchTileProvider);
         mReverseChargingTileProvider = reverseChargingTileProvider;
         mBatterySaverTileGoogleProvider = batterySaverTileGoogleProvider;
     }
