@@ -61,13 +61,11 @@ public class SuperiorUtils {
     public static final String INTENT_SCREENSHOT = "action_handler_screenshot";
     public static final String INTENT_REGION_SCREENSHOT = "action_handler_region_screenshot";
 
-	// Check if device is connected to Wi-Fi
-    public static boolean isWiFiConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm == null) return false;
-
-        NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return wifi.isConnected();
+    // Check to see if device is WiFi only
+    public static boolean isWifiOnly(Context context) {
+	ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
+	        Context.CONNECTIVITY_SERVICE);
+	return (cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE) == false);
     }
 
 	// Returns today's passed time in Millisecond
@@ -77,16 +75,6 @@ public class SuperiorUtils {
         time.set(System.currentTimeMillis());
         passedMillis = ((time.hour * 60 * 60) + (time.minute * 60) + time.second) * 1000;
         return passedMillis;
-    }
-
-	// Check if device is connected to the internet
-    public static boolean isConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm == null) return false;
-
-        NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        return wifi.isConnected() || mobile.isConnected();
     }
 
     public static String batteryTemperature(Context context, Boolean ForC) {
