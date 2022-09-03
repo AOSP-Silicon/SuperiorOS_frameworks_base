@@ -108,7 +108,6 @@ import androidx.annotation.Nullable;
 import com.android.internal.graphics.drawable.BackgroundBlurDrawable;
 import com.android.internal.view.RotationPolicy;
 import com.android.settingslib.Utils;
-import com.android.systemui.Dependency;
 import com.android.systemui.Prefs;
 import com.android.systemui.R;
 import com.android.systemui.animation.Interpolators;
@@ -227,8 +226,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     private CaptionsToggleImageButton mODICaptionsIcon;
     private View mSettingsView;
     private ImageButton mSettingsIcon;
-    private View mAppVolumeView;
-    private ImageButton mAppVolumeIcon;
     private FrameLayout mZenIcon;
     private final List<VolumeRow> mRows = new ArrayList<>();
     private ConfigurableTexts mConfigurableTexts;
@@ -580,9 +577,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         mSettingsView = mDialog.findViewById(R.id.settings_container);
         mSettingsIcon = mDialog.findViewById(R.id.settings);
 
-	mAppVolumeView = mDialog.findViewById(R.id.app_volume_container);
-	mAppVolumeIcon = mDialog.findViewById(R.id.app_volume);
-
         mRoundedBorderBottom = mDialog.findViewById(R.id.rounded_border_bottom);
 
         if (mVolumePanelOnLeft) {
@@ -612,6 +606,9 @@ public class VolumeDialogImpl implements VolumeDialog,
             setGravity(mODICaptionsView, Gravity.LEFT);
             setLayoutGravity(mODICaptionsView, Gravity.LEFT);
         }
+
+        mAppVolumeView = mDialog.findViewById(R.id.app_volume_container);
+        mAppVolumeIcon = mDialog.findViewById(R.id.app_volume);
 
         if (mRows.isEmpty()) {
             if (!AudioSystem.isSingleVolume(mContext)) {
@@ -1147,20 +1144,13 @@ public class VolumeDialogImpl implements VolumeDialog,
     }
 
     private boolean shouldShowAppVolume() {
-        ContentResolver cr = mContext.getContentResolver();
-        int showAppVolume = Settings.System.getInt(cr, Settings.System.SHOW_APP_VOLUME, 0);
-        boolean ret = showAppVolume == 1;
-        if (ret) {
-            ret = false;
-            AudioManager audioManager = mController.getAudioManager();
-            for (AppVolume av : audioManager.listAppVolumes()) {
-                if (av.isActive()) {
-                    ret = true;
-            break;
-                }
+        AudioManager audioManager = mController.getAudioManager();
+        for (AppVolume av : audioManager.listAppVolumes()) {
+            if (av.isActive()) {
+                return true;
             }
         }
-        return ret;
+        return false;
     }
 
     public void initAppVolumeH() {
@@ -1172,9 +1162,8 @@ public class VolumeDialogImpl implements VolumeDialog,
                 Events.writeEvent(Events.EVENT_SETTINGS_CLICK);
                 Intent intent = new Intent(Settings.Panel.ACTION_APP_VOLUME);
                 dismissH(DISMISS_REASON_SETTINGS_CLICKED);
-                Dependency.get(MediaOutputDialogFactory.class).dismiss();
-                Dependency.get(ActivityStarter.class).startActivity(intent,
-                        true /* dismissShade */);
+                mMediaOutputDialogFactory.dismiss();
+                mActivityStarter.startActivity(intent, true /* dismissShade */);
             });
         }
     }

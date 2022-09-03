@@ -816,12 +816,12 @@ android_media_AudioSystem_getMasterBalance(JNIEnv *env, jobject thiz)
     return balance;
 }
 
-
 static jint
 android_media_AudioSystem_setAppVolume(JNIEnv *env, jobject thiz, jstring packageName, jfloat value)
 {
     const jchar* c_packageName = env->GetStringCritical(packageName, 0);
-    String8 package8 = String8(reinterpret_cast<const char16_t*>(c_packageName), env->GetStringLength(packageName));
+    String8 package8 = String8(reinterpret_cast<const char16_t*>(c_packageName),
+                                    env->GetStringLength(packageName));
     env->ReleaseStringCritical(packageName, c_packageName);
     return (jint) check_AudioSystem_Command(AudioSystem::setAppVolume(package8, value));
 }
@@ -830,7 +830,8 @@ static jint
 android_media_AudioSystem_setAppMute(JNIEnv *env, jobject thiz, jstring packageName, jboolean mute)
 {
     const jchar* c_packageName = env->GetStringCritical(packageName, 0);
-    String8 package8 = String8(reinterpret_cast<const char16_t*>(c_packageName), env->GetStringLength(packageName));
+    String8 package8 = String8(reinterpret_cast<const char16_t*>(c_packageName),
+                                    env->GetStringLength(packageName));
     env->ReleaseStringCritical(packageName, c_packageName);
     return (jint) check_AudioSystem_Command(AudioSystem::setAppMute(package8, mute));
 }
@@ -3003,12 +3004,13 @@ static const JNINativeMethod gMethods[] =
           "(Landroid/media/AudioAttributes;Landroid/media/AudioFormat;"
           "[Landroid/media/AudioDeviceAttributes;)Z",
           (void *)android_media_AudioSystem_canBeSpatialized},
-          {"setAppVolume", "(Ljava/lang/String;F)I",
+         {"setAppVolume", "(Ljava/lang/String;F)I",
           (void *)android_media_AudioSystem_setAppVolume},
          {"setAppMute", "(Ljava/lang/String;Z)I",
           (void *)android_media_AudioSystem_setAppMute},
          {"listAppVolumes", "(Ljava/util/ArrayList;)I",
           (void *)android_media_AudioSystem_listAppVolumes}};
+
 
 static const JNINativeMethod gEventHandlerMethods[] = {
     {"native_setup",
