@@ -62,6 +62,9 @@ import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.HeadsUpTile;
 import com.android.systemui.qs.tiles.CompassTile;
+import com.android.systemui.qs.tiles.FPSInfoTile;
+import com.android.systemui.qs.tiles.VpnTile;
+import com.android.systemui.qs.tiles.RebootTile;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -114,6 +117,9 @@ public class QSFactoryImplGoogle extends QSFactoryImpl {
             Provider<VolumeTile> volumeTileProvider,
             Provider<DataSwitchTile> dataSwitchTileProvider,
             Provider<CompassTile> compassTileProvider,
+            Provider<FPSInfoTile> fpsInfoTileProvider,
+            Provider<VpnTile> vpnTileProvider,
+            Provider<RebootTile> rebootTileProvider,
             Provider<ReverseChargingTile> reverseChargingTileProvider) {
         super(qsHostLazy,
                 customTileBuilderProvider,
@@ -153,7 +159,10 @@ public class QSFactoryImplGoogle extends QSFactoryImpl {
                 headsUpTileProvider,
                 volumeTileProvider,
                 dataSwitchTileProvider,
-                compassTileProvider);
+                compassTileProvider,
+                fpsInfoTileProvider,
+                vpnTileProvider,
+                rebootTileProvider);
         mReverseChargingTileProvider = reverseChargingTileProvider;
         mBatterySaverTileGoogleProvider = batterySaverTileGoogleProvider;
     }
